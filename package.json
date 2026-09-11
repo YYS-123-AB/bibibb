@@ -1,0 +1,15 @@
+{
+  "name": "car-model-encyclopedia",
+  "version": "1.0.0",
+  "description": "汽车车型大全站 - 纯前端项目",
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetch-data.js",
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+  <title>汽车车型大全 - 126款热门车筛选对比评测</title>
+  <meta name="description" content="汽车车型大全站：德系/日系/美系/国产等9国系 × 微型/紧凑型/SUV等11级别 × 纯燃油/纯电/混动等7能源 × 6价格区间，4维度叠加筛选+搜索+排序，查配置比优缺点找同价位同品牌推荐。" />
+  <meta name="keywords" content="汽车大全,车型对比,SUV推荐,新能源汽车,纯电动车,德系车,国产车,价格区间,汽车评测,配置参数,优缺点" />
+  <base href="./" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='52' font-size='52'>🚗</text></svg>" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "汽车车型大全",
+    "url": "./",
+    "description": "最全汽车车型筛选与对比",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "./?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="./" class="logo" aria-label="汽车车型大全首页">
+        <span class="logo-icon" aria-hidden="true">🚗</span>
+        <span class="logo-text">车型<span>大全</span></span>
+      </a>
+      <div class="search-wrap" id="searchWrap" role="search">
+        <input
+          type="search"
+          id="searchInput"
+          class="search-input"
+          placeholder="搜索车型 / 品牌 / 厂商 / 发动机..."
+          autocomplete="off"
+          maxlength="60"
+          aria-label="搜索汽车"
+        />
+        <button type="button" class="search-clear" id="searchClear" aria-label="清除搜索">×</button>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn-icon" id="favBtn" aria-label="我的收藏">
+          <span aria-hidden="true">❤</span>
+          <span class="badge" id="favBadge" style="display:none">0</span>
+        </button>
+        <button type="button" class="btn-icon" id="themeToggle" aria-label="切换明暗主题">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" role="main">
+    <div class="container">
+      <section class="filter-tabs" aria-label="筛选条件">
+        <div class="filter-group">
+          <div class="filter-label"><span class="emoji">🌍</span> 国别 / 品牌系</div>
+          <div class="tab-row" id="originTabs" role="tablist" aria-label="选择国别"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-label"><span class="emoji">🚗</span> 车辆级别</div>
+          <div class="tab-row" id="classTabs" role="tablist" aria-label="选择车辆级别"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-label"><span class="emoji">⚡</span> 能源类型</div>
+          <div class="tab-row" id="energyTabs" role="tablist" aria-label="选择能源类型"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-label"><span class="emoji">💰</span> 价格区间</div>
+          <div class="tab-row" id="priceTabs" role="tablist" aria-label="选择价格区间"></div>
+        </div>
+      </section>
+
+      <div class="toolbar" role="toolbar" aria-label="工具栏">
+        <div class="section-title" style="margin:0;flex:1 1 auto">
+          <h2>全部车型 <span class="count" id="resultCount">加载中...</span></h2>
+        </div>
+        <div class="sort-wrap">
+          <span class="sort-label">排序：</span>
+          <select id="sortSelect" class="sort-select" aria-label="排序方式"></select>
+        </div>
+      </div>
+      <div class="active-filters" id="activeFilters" style="margin:0 0 16px" aria-live="polite"></div>
+
+      <section aria-label="车型列表">
+        <div class="grid-cards" id="carGrid"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalHeroModel" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-hero">
+        <img id="modalHeroImg" class="modal-hero-img" alt="" />
+        <button type="button" class="modal-close" id="modalCloseBtn" aria-label="关闭详情">×</button>
+        <button type="button" class="card-fav" id="modalFavBtn" aria-label="收藏车型" style="top:16px;right:64px;width:42px;height:42px;font-size:20px;"></button>
+        <div class="modal-hero-overlay">
+          <div class="modal-hero-title">
+            <span class="modal-hero-logo" id="modalHeroLogo" aria-hidden="true">🚗</span>
+            <div class="modal-hero-text">
+              <div class="modal-hero-brand" id="modalHeroBrand"></div>
+              <h2 class="modal-hero-model" id="modalHeroModel"></h2>
+            </div>
+          </div>
+          <div class="modal-hero-tags" id="modalHeroTags"></div>
+        </div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <button type="button" class="back-top" id="backTop" aria-label="回到顶部">↑</button>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p>
+        🚗 汽车车型大全 &copy; <span id="year"></span> · 数据仅供参考，以厂商公布为准
+        · <a href="./DEPLOY.md" target="_blank" rel="noopener">部署教程</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
